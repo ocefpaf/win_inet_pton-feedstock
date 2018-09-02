@@ -1,28 +1,22 @@
-{%set name = "win_inet_pton" %}
-{%set version = "1.0.1" %}
-{%set compress_type = "tar.gz" %}
-{%set hash_type = "sha256" %}
-{%set hash_val = "a45bc3073469afb5afd0e395aaabd836040a20ba1f2a6dd1196fa2b210ba386e" %}
-{%set build_num = "1" %}
+{% set version = "1.0.1" %}
 
 package:
-  name: {{ name|lower }}
+  name: win_inet_pton
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.{{ compress_type }}
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.{{ compress_type }}
-  {{ hash_type }}: {{ hash_val }}
+  url: https://pypi.io/packages/source/w/win_inet_pton/win_inet_pton-{{ version }}.tar.gz
+  sha256: a45bc3073469afb5afd0e395aaabd836040a20ba1f2a6dd1196fa2b210ba386e
 
 build:
+  number: 2
   skip: True  # [not win]
-  number: {{ build_num }}
-  script: python setup.py install
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
 requirements:
-  build:
+  host:
     - python
-
+    - pip
   run:
     - python
 
@@ -40,3 +34,4 @@ about:
 extra:
   recipe-maintainers:
     - pmlandwehr
+    - ocefpaf
